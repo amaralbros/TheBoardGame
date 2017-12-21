@@ -44,19 +44,16 @@ io.on('connection',function(socket){
   })
 
   socket.on('newGameDuo', (duoId)=>{
-    // logic to randomize who goes first?
     let player1 = new Player(1, duoId[0]); 
     let player2 = new Player(2, duoId[1]); 
     let gameId = randomInt(0, 999)
 
-    game = new Game(player1, player2, gameId)
+    let game = new Game(player1, player2, gameId)
+    game.next_turn()
     games.push(game)
 
-    // enable player1's next turn button
-
-    // disable player2's next turn button
-    
-  })
+    emitGameState(game)
+})
 
   socket.on('nextTurn', (newPieces)=>{
     // logic to find which game??
@@ -72,12 +69,30 @@ io.on('connection',function(socket){
 
     game.board.populate()
 
+    game.next_turn()
+
     console.log(game.board.matrix)
+    emitGameState(game)
   })
 
 
 
 })
+
+function emitGameState(game){
+  if (game.turn < 20){
+    if (game.turn % 2 != 0){
+      // player 1
+      console.log('p1 turn')
+      io.to(game.player1.id).emit('yourTurn', game.board.matrix)
+    } else {
+      // player 2
+      console.log('p2 turn')
+      io.to(game.player2.id).emit('yourTurn', game.board.matrix)
+    }
+  }
+}
+
 
 function findPlayer(game, socket){
   if (game.player1.id === socket.id){
@@ -88,11 +103,11 @@ function findPlayer(game, socket){
 }
 
 function findRoomFromPlayer(player){
-  
+
 }
 
 function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
+  return Math.floor(Math.random() * (high - low) + low);
 }
 
 
