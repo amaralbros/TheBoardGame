@@ -33,10 +33,11 @@ class Game {
     this.total_mana = 3
     this.player1 = p1
     this.player2 = p2
+    this.currentPlayer = 0
 
     this.board.stored_pieces = 
     [
-    new Piece(1, this.p1, 4, 0),
+    // new Piece(1, this.p1, 4, 0),
     // new Piece(12, this.p1, 4, 1),
     // new Piece(12, this.p1, 4, 2),
     // new Piece(10, this.p2, 0, 0),
@@ -65,6 +66,7 @@ class Game {
   // handles player turn procedures
   handle_player_turn(player){
     player.mana = this.total_mana
+    this.currentPlayer = player
     this.move_pieces(player)
   }
   

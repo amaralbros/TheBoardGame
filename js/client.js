@@ -2,6 +2,21 @@ class Client {
   constructor(){
     this.socket = io.connect();
     console.log('this client:', this.socket)
+
+    this.socket.on('yourTurn', (matrix)=>{
+      // receives matrix
+      console.log(matrix)
+
+
+      // user input
+      let newPieces = []
+
+      // health, row, col
+      let newPiece = [3, 4, 0]
+
+      newPieces.push(newPiece)
+
+    })
   }
 
   loggedRoom(num){
@@ -26,14 +41,7 @@ class Client {
   }
 
   nextTurn(){
-    let newPieces = []
-
-    // health, row, col
-    let newPiece = [3, 4, 0]
-
-    newPieces.push(newPiece)
-
-    this.socket.emit('nextTurn', newPieces)
+      this.socket.emit('nextTurn', newPieces)
   }
 
 
