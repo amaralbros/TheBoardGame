@@ -12,7 +12,8 @@ app.use('/assets',express.static(__dirname + '/assets'));
 
 
 app.get('/',function(req,res){
-  res.sendFile(__dirname+'/index.html');
+  res.sendFile(__dirname+'/client/public/index.html');
+
 });
 
 app.get('/room1',function(req,res){
@@ -45,8 +46,8 @@ io.on('connection',function(socket){
 
   socket.on('newGameDuo', (duoId)=>{
     // logic to randomize who goes first?
-    let player1 = new Player(1, duoId[0]); 
-    let player2 = new Player(2, duoId[1]); 
+    let player1 = new Player(1, duoId[0]);
+    let player2 = new Player(2, duoId[1]);
     let gameId = randomInt(0, 999)
 
     game = new Game(player1, player2, gameId)
@@ -55,7 +56,7 @@ io.on('connection',function(socket){
     // enable player1's next turn button
 
     // disable player2's next turn button
-    
+
   })
 
   socket.on('nextTurn', (newPieces)=>{
@@ -88,12 +89,9 @@ function findPlayer(game, socket){
 }
 
 function findRoomFromPlayer(player){
-  
+
 }
 
 function randomInt (low, high) {
     return Math.floor(Math.random() * (high - low) + low);
 }
-
-
-
