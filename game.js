@@ -15,7 +15,7 @@
 
   *****<User input: row, col>***** //user places his piece in board matrix
 
-  game.stored_pieces = [ new Piece(health, player, row, col), ... ]
+  game.board.stored_pieces = [ new Piece(health, player, row, col), ... ]
 
   game.board.populate()
 
@@ -56,9 +56,9 @@ class Game {
 
     if (this.turn % 2 != 0){
       this.total_mana += 1
-      this.handle_player_turn(this.p1)
+      this.handle_player_turn(this.player1)
     } else {
-      this.handle_player_turn(this.p2)
+      this.handle_player_turn(this.player2)
     }
   }
 
@@ -201,7 +201,6 @@ class Player {
   }
 }
 
-
 class Piece {
   constructor(health, owner, row, col){
     this.health = health
@@ -234,6 +233,23 @@ class Piece {
     return this
   }
 }
+
+// let p1 = new Player(1, 1)
+// let p2 = new Player(2, 2)
+
+// let game = new Game(p1, p2, 1)
+
+// game.board.stored_pieces = [new Piece(1, p1, 4, 0)]
+
+// game.board.populate()
+
+// console.log(game.board.matrix)
+
+// for (let i = 0; i < 10; i++){
+//   game.next_turn()
+//   console.log(game.turn)
+//   console.log(game.board.matrix)
+// }
 
 exports.Game = Game;
 exports.Board = Board;

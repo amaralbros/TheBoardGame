@@ -1,7 +1,7 @@
 class Client {
   constructor(){
     this.socket = io.connect();
-    console.log('this client:', this)
+    console.log('this client:', this.socket)
   }
 
   loggedRoom(num){
